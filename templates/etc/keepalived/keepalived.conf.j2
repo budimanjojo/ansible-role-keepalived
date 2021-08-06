@@ -33,7 +33,7 @@
 {% else %}
     {{ key }} {
 {% for i in value %}
-{% elif i is string or i is number %}
+{% if i is string or i is number %}
         {{ i }}
 {% elif i is mapping %}
 {% for k, v in i.items() %}
@@ -50,13 +50,13 @@
 {% endif %}
 {% endfor %}
 {% endmacro %}
-{% if keepalived_global_defs_options is defined %}
+{% if keepalived_global_defs_options is defined and keepalived_global_defs_options | length > 0 %}
 
 global_defs {
 {{ print_options(keepalived_global_defs_options) -}}
 }
 {% endif %}
-{% if keepalived_virtual_servers is defined %}
+{% if keepalived_virtual_servers is defined and keepalived_virtual_servers | length > 0%}
 
 {% for item in keepalived_virtual_servers %}
 virtual_server {{ item.name }} {
@@ -64,7 +64,7 @@ virtual_server {{ item.name }} {
 }
 {% endfor %}
 {% endif %}
-{% if keepalived_real_servers is defined %}
+{% if keepalived_real_servers is defined and keepalived_real_servers | length > 0%}
 
 {% for item in keepalived_real_servers %}
 real_server {{ item.name }} {
@@ -72,7 +72,7 @@ real_server {{ item.name }} {
 }
 {% endfor %}
 {% endif %}
-{% if keepalived_sync_groups is defined %}
+{% if keepalived_sync_groups is defined and keepalived_sync_groups | length > 0%}
 
 {% for item in keepalived_sync_groups %}
 sync_group {{ item.name }} {
@@ -80,7 +80,7 @@ sync_group {{ item.name }} {
 }
 {% endfor %}
 {% endif %}
-{% if keepalived_vrrp_scripts is defined %}
+{% if keepalived_vrrp_scripts is defined and keepalived_vrrp_scripts | length > 0%}
 
 {% for item in keepalived_vrrp_scripts %}
 vrrp_script {{ item.name }} {
@@ -88,7 +88,7 @@ vrrp_script {{ item.name }} {
 }
 {% endfor %}
 {% endif %}
-{% if keepalived_vrrp_instances is defined %}
+{% if keepalived_vrrp_instances is defined and keepalived_vrrp_instances | length > 0 %}
 
 {% for item in keepalived_vrrp_instances %}
 vrrp_instance {{ item.name }} {
