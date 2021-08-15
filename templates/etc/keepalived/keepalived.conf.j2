@@ -1,4 +1,4 @@
-{{ 'ansiblemanaged' | comment }}
+{{ ansible_managed | comment }}
 {% macro print_options(options) %}
 {% for key, value in options.items() %}
 {% if value is boolean and value %}
